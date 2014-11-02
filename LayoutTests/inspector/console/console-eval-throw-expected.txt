@@ -1,0 +1,23 @@
+Tests that evaluating 'throw undefined|1|string|object|Error' in the console won't crash the browser and correctly reported. Bug 59611.
+
+
+Running: testThrowUndefined
+throw undefined
+VM:2 Uncaught undefined
+
+Running: testThrowNumber
+throw 1
+VM:2 Uncaught 1
+
+Running: testThrowString
+throw 'asdf'
+VM:2 Uncaught asdf
+
+Running: testThrowObject
+throw {a:42}
+VM:2 Uncaught Object {a: 42}
+
+Running: testThrowError
+throw new Error('asdf')
+VM:2 Uncaught Error: asdf
+

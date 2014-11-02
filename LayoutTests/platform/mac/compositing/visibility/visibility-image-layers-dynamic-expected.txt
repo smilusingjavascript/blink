@@ -1,0 +1,114 @@
+
+
+
+Initial
+
+{
+  "bounds": [785, 614],
+  "children": [
+    {
+      "bounds": [785, 614],
+      "contentsOpaque": true,
+      "drawsContent": true,
+      "children": [
+        {
+          "position": [18, 10],
+          "bounds": [749, 144]
+        },
+        {
+          "position": [14, 314],
+          "bounds": [757, 152],
+          "contentsVisible": false,
+          "children": [
+            {
+              "position": [24, 24],
+              "bounds": [100, 100]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+After step 1
+
+{
+  "bounds": [785, 985],
+  "children": [
+    {
+      "bounds": [785, 985],
+      "contentsOpaque": true,
+      "drawsContent": true,
+      "children": [
+        {
+          "position": [18, 10],
+          "bounds": [749, 144],
+          "children": [
+            {
+              "position": [20, 20],
+              "bounds": [100, 100]
+            }
+          ]
+        },
+        {
+          "position": [14, 314],
+          "bounds": [757, 152],
+          "contentsVisible": false,
+          "children": [
+            {
+              "position": [24, 24],
+              "bounds": [100, 100]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+After step 2
+
+{
+  "bounds": [785, 1433],
+  "children": [
+    {
+      "bounds": [785, 1433],
+      "contentsOpaque": true,
+      "drawsContent": true,
+      "children": [
+        {
+          "position": [18, 10],
+          "bounds": [749, 144],
+          "children": [
+            {
+              "position": [20, 20],
+              "bounds": [100, 100]
+            }
+          ]
+        },
+        {
+          "position": [14, 160],
+          "bounds": [757, 152],
+          "drawsContent": true,
+          "children": [
+            {
+              "position": [24, 24],
+              "bounds": [100, 100]
+            }
+          ]
+        },
+        {
+          "position": [14, 314],
+          "bounds": [757, 152],
+          "contentsVisible": false,
+          "children": [
+            {
+              "position": [24, 24],
+              "bounds": [100, 100]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

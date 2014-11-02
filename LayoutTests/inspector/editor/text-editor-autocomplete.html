@@ -1,0 +1,94 @@
+<html>
+<head>
+<script src="../../http/tests/inspector/inspector-test.js"></script>
+<script src="editor-test.js"></script>
+<script>
+function codeSnippet() {
+    return document.getElementById("codeSnippet").textContent;
+}
+
+function test()
+{
+    var textEditor = InspectorTest.createTestEditor();
+    textEditor.setMimeType("text/javascript");
+    textEditor.setReadOnly(false);
+    textEditor.element.focus();
+
+    var completionDictionary = new WebInspector.SampleCompletionDictionary();
+    textEditor.setCompletionDictionary(completionDictionary);
+
+    InspectorTest.runTestSuite([
+        // This test has to be the first. It validates that autocompletion controller
+        // will initialize as a key will be pressed.
+        function testCompletionsShowUpOnKeyPress(next)
+        {
+            textEditor.setText("name1 name2 name3 name4\nna");
+            textEditor.setSelection(WebInspector.TextRange.createFromLocation(1, 2));
+            InspectorTest.addSniffer(WebInspector.SuggestBox.prototype, "updateSuggestions", onAutocompletionSuggestBox);
+            InspectorTest.typeIn(textEditor, "m", new Function());
+            function onAutocompletionSuggestBox()
+            {
+                document.activeElement.dispatchEvent(InspectorTest.createKeyEvent("Enter"));
+                dumpDictionary(next);
+            }
+        },
+
+        function testSetInitialText(next)
+        {
+            textEditor.setText("one two three3_\nfour five\na_b\nsix\n123foo\n132\nseven");
+            dumpDictionary(next);
+        },
+
+        function testAlphaNumericWords(next)
+        {
+            textEditor.setText("2 2foo foo2 2foo4 foo3bar");
+            dumpDictionary(next);
+        },
+
+        function testSetText(next)
+        {
+            textEditor.setText("dog cat 'mouse';dog bird");
+            dumpDictionary(next);
+        },
+
+        function testSimpleEdit(next)
+        {
+            textEditor.setSelection(WebInspector.TextRange.createFromLocation(0, 3));
+            InspectorTest.typeIn(textEditor, "\b", dumpDictionary.bind(null, next));
+        },
+
+        function testDeleteOneDogAndOneCat(next)
+        {
+            textEditor.setSelection(WebInspector.TextRange.createFromLocation(0, 6));
+            InspectorTest.typeIn(textEditor, "\b\b\b\b\b\b", dumpDictionary.bind(null, next));
+        },
+
+        function testCSSMimeType(next)
+        {
+            textEditor.setText(".my-class { -webkit-border: 1px solid black; }");
+            textEditor.setMimeType("text/css");
+            dumpDictionary(next);
+        },
+    ]);
+
+    function dumpDictionary(next) {
+        var wordsInDictionary = completionDictionary.wordsWithPrefix("");
+        InspectorTest.addResult("========= Text in editor =========");
+        InspectorTest.dumpTextWithSelection(textEditor);
+        InspectorTest.addResult("======= Words in dictionary =======");
+        InspectorTest.addResult("[" + wordsInDictionary.sort().join(", ") + "]");
+        InspectorTest.addResult("=============");
+        next();
+    }
+}
+
+</script>
+</head>
+
+<body onload="runTest();">
+<p>
+This test checks how text editor updates autocompletion dictionary in a response
+to user input.
+</p>
+</body>
+</html>

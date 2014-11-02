@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Verify v2 events</title>
+        <script src="encrypted-media-utils.js"></script>
+        <script src="../../resources/testharness.js"></script>
+        <script src="../../resources/testharnessreport.js"></script>
+    </head>
+    <body>
+        <div id="log"></div>
+        <script>
+            // Currently Clear Key only generates aynchronous "message" events.
+            // It does not generate any "error" events.
+            // FIXME: Update this test to handle "keychange" events once
+            // implemented.
+            async_test(function(test)
+            {
+                var mediaKeySession;
+
+                function processMessage(event)
+                {
+                    test.done();
+                }
+
+                navigator.requestMediaKeySystemAccess('org.w3.clearkey').then(function(access) {
+                    return access.createMediaKeys();
+                }).then(test.step_func(function(mediaKeys) {
+                    var initDataType = getInitDataType();
+                    var mediaKeySession = mediaKeys.createSession();
+                    waitForEventAndRunStep('message', mediaKeySession, test.step_func(processMessage), test);
+                    return mediaKeySession.generateRequest(initDataType, getInitData(initDataType));
+                })).catch(test.step_func(function(error) {
+                    forceTestFailureFromPromise(test, error);
+                }));
+            }, 'Verify v2 events.');
+        </script>
+    </body>
+</html>

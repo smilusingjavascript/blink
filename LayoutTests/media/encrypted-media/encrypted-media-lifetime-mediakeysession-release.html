@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MediaKeySession lifetime after release()</title>
+        <script src="encrypted-media-utils.js"></script>
+        <script src="../../resources/testharness.js"></script>
+        <script src="../../resources/testharnessreport.js"></script>
+    </head>
+    <body>
+        <div id="log"></div>
+        <script>
+            // Since MediaKeySession (but not MediaKeys) are ActiveDOMObjects,
+            // we can determine when they are garbage collected.
+            // MediaKeySessions remain as long as:
+            //   JavaScript has a reference to it
+            //   OR (MediaKeys is around
+            //       AND the session has not received a close() event)
+            async_test(function(test)
+            {
+                var mediaKeys;
+                var mediaKeySession1;
+                var mediaKeySession2;
+                var initDataType = getInitDataType();
+                var initData = getInitData(initDataType);
+                var startingActiveDOMObjectCount = window.internals.activeDOMObjectCount(document);
+
+                function numActiveDOMObjectsCreated()
+                {
+                    return window.internals.activeDOMObjectCount(document) - startingActiveDOMObjectCount;
+                }
+
+                // Create 2 sessions.
+                navigator.requestMediaKeySystemAccess('org.w3.clearkey').then(function(access) {
+                    return access.createMediaKeys();
+                }).then(function(result) {
+                    mediaKeys = result;
+
+                    // Verify MediaKeys are not an ActiveDOMObject.
+                    assert_equals(numActiveDOMObjectsCreated(), 0, 'MediaKeys.create()');
+
+                    mediaKeySession1 = mediaKeys.createSession();
+                    return mediaKeySession1.generateRequest(initDataType, initData);
+                }).then(function() {
+                    // Should be 1 MediaKeySession.
+                    assert_equals(numActiveDOMObjectsCreated(), 1, 'mediaKeys.createSession(1)');
+                    mediaKeySession2 = mediaKeys.createSession();
+                    return mediaKeySession2.generateRequest(initDataType, initData);
+                }).then(function() {
+                    // Should be 2 MediaKeySessions.
+                    assert_equals(numActiveDOMObjectsCreated(), 2, 'mediaKeys.createSession(2)');
+
+                    // Close the sessions. Once completed, only the JS
+                    // reference to them keeps them around.
+                    return mediaKeySession1.close();
+                }).then(function(result) {
+                    return mediaKeySession2.close();
+                }).then(function(result) {
+                    // Since both sessions have been closed, dropping the
+                    // reference to them from JS will result in the session
+                    // being garbage-collected.
+                    // Should be 2 MediaKeySessions.
+                    assert_equals(numActiveDOMObjectsCreated(), 2);
+
+                    mediaKeySession1 = null;
+                    return createGCPromise();
+                }).then(function(result) {
+                    // Only mediaKeySession2 should remain.
+                    assert_equals(numActiveDOMObjectsCreated(), 1, 'mediaKeySession1 not collected');
+
+                    mediaKeySession2 = null;
+                    return createGCPromise();
+                }).then(function(result) {
+                    assert_equals(numActiveDOMObjectsCreated(), 0, 'mediaKeySession2 not collected');
+                    test.done();
+                }).catch(function(error) {
+                    forceTestFailureFromPromise(test, error);
+                });
+            }, 'MediaKeySession lifetime after release()');
+        </script>
+    </body>
+</html>
