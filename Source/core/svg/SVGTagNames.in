@@ -4,7 +4,10 @@ fallbackInterfaceName="SVGUnknownElement"
 fallbackJSInterfaceName="SVGElement"
 
 a
+animate interfaceName=SVGPolyfillAnimateElement
 animateColor interfaceName=SVGUnknownElement, JSInterfaceName=SVGElement, noConstructor
+animateMotion interfaceName=SVGPolyfillAnimateMotionElement
+animateTransform interfaceName=SVGPolyfillAnimateTransformElement
 circle
 clipPath
 cursor
@@ -46,6 +49,7 @@ linearGradient
 marker
 mask
 metadata
+mpath interfaceName=SVGPolyfillMPathElement
 nativeAnimate noTypeHelpers
 nativeAnimateMotion
 nativeAnimateTransform
@@ -58,6 +62,7 @@ polyline
 radialGradient
 rect
 script constructorNeedsCreatedByParser
+set interfaceName=SVGPolyfillSetElement
 stop
 style constructorNeedsCreatedByParser
 svg interfaceName=SVGSVGElement
