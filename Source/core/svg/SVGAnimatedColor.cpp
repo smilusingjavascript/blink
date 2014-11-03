@@ -23,7 +23,7 @@
 
 #include "core/rendering/RenderObject.h"
 #include "core/svg/ColorDistance.h"
-#include "core/svg/SVGAnimateElement.h"
+#include "core/svg/SVGNativeAnimateElement.h"
 
 namespace blink {
 
@@ -58,7 +58,7 @@ void SVGColorProperty::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGEle
     m_styleColor = StyleColor(ColorDistance::addColors(fromColor, toColor));
 }
 
-void SVGColorProperty::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGColorProperty::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     StyleColor fromStyleColor = toSVGColorProperty(fromValue)->m_styleColor;
     StyleColor toStyleColor = toSVGColorProperty(toValue)->m_styleColor;

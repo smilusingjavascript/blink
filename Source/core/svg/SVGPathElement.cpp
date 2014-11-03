@@ -23,7 +23,7 @@
 
 #include "core/rendering/svg/RenderSVGPath.h"
 #include "core/svg/SVGDocumentExtensions.h"
-#include "core/svg/SVGMPathElement.h"
+#include "core/svg/SVGNativeMPathElement.h"
 #include "core/svg/SVGPathSegArcAbs.h"
 #include "core/svg/SVGPathSegArcRel.h"
 #include "core/svg/SVGPathSegClosePath.h"
@@ -236,8 +236,8 @@ void SVGPathElement::invalidateMPathDependencies()
     if (SVGElementSet* dependencies = setOfIncomingReferences()) {
         SVGElementSet::iterator end = dependencies->end();
         for (SVGElementSet::iterator it = dependencies->begin(); it != end; ++it) {
-            if (isSVGMPathElement(**it))
-                toSVGMPathElement(*it)->targetPathChanged();
+            if (isSVGNativeMPathElement(**it))
+                toSVGNativeMPathElement(*it)->targetPathChanged();
         }
     }
 }

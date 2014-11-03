@@ -32,7 +32,7 @@
 #include "core/svg/SVGInteger.h"
 #include "core/html/parser/HTMLParserIdioms.h"
 
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 
 namespace blink {
 
@@ -72,7 +72,7 @@ void SVGInteger::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElement*)
     setValue(m_value + toSVGInteger(other)->value());
 }
 
-void SVGInteger::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDuration, SVGElement*)
+void SVGInteger::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDuration, SVGElement*)
 {
     ASSERT(animationElement);
 

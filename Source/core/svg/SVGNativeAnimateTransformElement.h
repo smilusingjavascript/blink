@@ -1,5 +1,8 @@
 /*
+ * Copyright (C) 2004, 2005 Nikolas Zimmermann <zimmermann@kde.org>
+ * Copyright (C) 2004, 2005, 2006, 2007 Rob Buis <buis@kde.org>
  * Copyright (C) 2007 Eric Seidel <eric@webkit.org>
+ * Copyright (C) 2008 Apple Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,47 +20,31 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGMPathElement_h
-#define SVGMPathElement_h
+#ifndef SVGNativeAnimateTransformElement_h
+#define SVGNativeAnimateTransformElement_h
 
-#include "core/SVGNames.h"
-#include "core/svg/SVGAnimatedBoolean.h"
-#include "core/svg/SVGAnimatedString.h"
-#include "core/svg/SVGElement.h"
-#include "core/svg/SVGURIReference.h"
+#include "core/svg/SVGNativeAnimateElement.h"
+#include "core/svg/SVGTransform.h"
 
 namespace blink {
 
-class SVGPathElement;
-
-class SVGMPathElement final : public SVGElement,
-                              public SVGURIReference {
+class SVGNativeAnimateTransformElement final : public SVGNativeAnimateElement {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    DECLARE_NODE_FACTORY(SVGMPathElement);
+    DECLARE_NODE_FACTORY(SVGNativeAnimateTransformElement);
 
-    virtual ~SVGMPathElement();
-
-    SVGPathElement* pathElement();
-
-    void targetPathChanged();
+    SVGTransformType transformType() const { return m_type; }
 
 private:
-    explicit SVGMPathElement(Document&);
+    explicit SVGNativeAnimateTransformElement(Document&);
 
-    virtual void buildPendingResource() override;
-    void clearResourceReferences();
-    virtual InsertionNotificationRequest insertedInto(ContainerNode*) override;
-    virtual void removedFrom(ContainerNode*) override;
+    virtual bool hasValidAttributeType() override;
 
     virtual void parseAttribute(const QualifiedName&, const AtomicString&) override;
-    virtual void svgAttributeChanged(const QualifiedName&) override;
 
-    virtual bool rendererIsNeeded(const RenderStyle&) override { return false; }
-    void notifyParentOfPathChange(ContainerNode*);
-
+    SVGTransformType m_type;
 };
 
 } // namespace blink
 
-#endif // SVGMPathElement_h
+#endif // SVGNativeAnimateTransformElement_h

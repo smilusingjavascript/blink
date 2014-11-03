@@ -34,7 +34,7 @@
 
 #include "bindings/core/v8/ExceptionState.h"
 #include "core/dom/ExceptionCode.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "platform/transforms/AffineTransform.h"
 #include "wtf/text/StringBuilder.h"
@@ -122,7 +122,7 @@ void SVGPoint::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElement*)
     ASSERT_NOT_REACHED();
 }
 
-void SVGPoint::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*)
+void SVGPoint::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*)
 {
     // SVGPoint is not animated by itself
     ASSERT_NOT_REACHED();

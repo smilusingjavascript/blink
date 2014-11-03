@@ -31,7 +31,7 @@
 #include "config.h"
 #include "core/svg/SVGIntegerOptionalInteger.h"
 
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 
 namespace blink {
@@ -90,7 +90,7 @@ void SVGIntegerOptionalInteger::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> othe
     m_secondInteger->setValue(m_secondInteger->value() + otherIntegerOptionalInteger->m_secondInteger->value());
 }
 
-void SVGIntegerOptionalInteger::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDuration, SVGElement*)
+void SVGIntegerOptionalInteger::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDuration, SVGElement*)
 {
     ASSERT(animationElement);
 

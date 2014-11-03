@@ -20,7 +20,7 @@
 #include "config.h"
 #include "core/svg/SVGString.h"
 
-#include "core/svg/SVGAnimateElement.h"
+#include "core/svg/SVGNativeAnimateElement.h"
 
 namespace blink {
 
@@ -29,7 +29,7 @@ void SVGString::add(PassRefPtrWillBeRawPtr<SVGPropertyBase>, SVGElement*)
     ASSERT_NOT_REACHED();
 }
 
-void SVGString::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase>, SVGElement*)
+void SVGString::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase>, SVGElement*)
 {
     ASSERT(animationElement);
 

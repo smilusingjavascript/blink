@@ -25,7 +25,7 @@
 #include "core/svg/SVGPathSegList.h"
 
 #include "core/SVGNames.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGPathBlender.h"
 #include "core/svg/SVGPathByteStreamBuilder.h"
 #include "core/svg/SVGPathByteStreamSource.h"
@@ -167,7 +167,7 @@ void SVGPathSegList::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGEleme
     invalidateList();
 }
 
-void SVGPathSegList::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*)
+void SVGPathSegList::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*)
 {
     invalidateList();
 

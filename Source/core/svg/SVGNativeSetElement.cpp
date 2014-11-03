@@ -1,8 +1,6 @@
 /*
  * Copyright (C) 2004, 2005 Nikolas Zimmermann <zimmermann@kde.org>
- * Copyright (C) 2004, 2005, 2006, 2007 Rob Buis <buis@kde.org>
- * Copyright (C) 2007 Eric Seidel <eric@webkit.org>
- * Copyright (C) 2008 Apple Inc. All rights reserved.
+ * Copyright (C) 2004, 2005 Rob Buis <buis@kde.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,31 +18,25 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGAnimateTransformElement_h
-#define SVGAnimateTransformElement_h
+#include "config.h"
+#include "core/svg/SVGNativeSetElement.h"
 
-#include "core/svg/SVGAnimateElement.h"
-#include "core/svg/SVGTransform.h"
+#include "core/SVGNames.h"
 
 namespace blink {
 
-class SVGAnimateTransformElement final : public SVGAnimateElement {
-    DEFINE_WRAPPERTYPEINFO();
-public:
-    DECLARE_NODE_FACTORY(SVGAnimateTransformElement);
+inline SVGNativeSetElement::SVGNativeSetElement(Document& document)
+    : SVGNativeAnimateElement(SVGNames::nativeSetTag, document)
+{
+    setAnimationMode(ToAnimation);
+}
 
-    SVGTransformType transformType() const { return m_type; }
+DEFINE_NODE_FACTORY(SVGNativeSetElement)
 
-private:
-    explicit SVGAnimateTransformElement(Document&);
+void SVGNativeSetElement::updateAnimationMode()
+{
+    // No-op, as <set> has a constant animation mode of ToAnimation.
+    // See: http://www.w3.org/TR/SVG/single-page.html#animate-SetElement
+}
 
-    virtual bool hasValidAttributeType() override;
-
-    virtual void parseAttribute(const QualifiedName&, const AtomicString&) override;
-
-    SVGTransformType m_type;
-};
-
-} // namespace blink
-
-#endif // SVGAnimateTransformElement_h
+}

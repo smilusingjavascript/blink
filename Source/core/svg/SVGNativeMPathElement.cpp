@@ -19,32 +19,32 @@
 
 #include "config.h"
 
-#include "core/svg/SVGMPathElement.h"
+#include "core/svg/SVGNativeMPathElement.h"
 
 #include "core/XLinkNames.h"
 #include "core/dom/Document.h"
-#include "core/svg/SVGAnimateMotionElement.h"
+#include "core/svg/SVGNativeAnimateMotionElement.h"
 #include "core/svg/SVGDocumentExtensions.h"
 #include "core/svg/SVGPathElement.h"
 
 namespace blink {
 
-inline SVGMPathElement::SVGMPathElement(Document& document)
-    : SVGElement(SVGNames::mpathTag, document)
+inline SVGNativeMPathElement::SVGNativeMPathElement(Document& document)
+    : SVGElement(SVGNames::nativeMPathTag, document)
     , SVGURIReference(this)
 {
 }
 
-DEFINE_NODE_FACTORY(SVGMPathElement)
+DEFINE_NODE_FACTORY(SVGNativeMPathElement)
 
-SVGMPathElement::~SVGMPathElement()
+SVGNativeMPathElement::~SVGNativeMPathElement()
 {
 #if !ENABLE(OILPAN)
     clearResourceReferences();
 #endif
 }
 
-void SVGMPathElement::buildPendingResource()
+void SVGNativeMPathElement::buildPendingResource()
 {
     clearResourceReferences();
     if (!inDocument())
@@ -70,12 +70,12 @@ void SVGMPathElement::buildPendingResource()
     targetPathChanged();
 }
 
-void SVGMPathElement::clearResourceReferences()
+void SVGNativeMPathElement::clearResourceReferences()
 {
     removeAllOutgoingReferences();
 }
 
-Node::InsertionNotificationRequest SVGMPathElement::insertedInto(ContainerNode* rootParent)
+Node::InsertionNotificationRequest SVGNativeMPathElement::insertedInto(ContainerNode* rootParent)
 {
     SVGElement::insertedInto(rootParent);
     if (rootParent->inDocument())
@@ -83,7 +83,7 @@ Node::InsertionNotificationRequest SVGMPathElement::insertedInto(ContainerNode* 
     return InsertionDone;
 }
 
-void SVGMPathElement::removedFrom(ContainerNode* rootParent)
+void SVGNativeMPathElement::removedFrom(ContainerNode* rootParent)
 {
     SVGElement::removedFrom(rootParent);
     notifyParentOfPathChange(rootParent);
@@ -91,12 +91,12 @@ void SVGMPathElement::removedFrom(ContainerNode* rootParent)
         clearResourceReferences();
 }
 
-void SVGMPathElement::parseAttribute(const QualifiedName& name, const AtomicString& value)
+void SVGNativeMPathElement::parseAttribute(const QualifiedName& name, const AtomicString& value)
 {
     parseAttributeNew(name, value);
 }
 
-void SVGMPathElement::svgAttributeChanged(const QualifiedName& attrName)
+void SVGNativeMPathElement::svgAttributeChanged(const QualifiedName& attrName)
 {
     if (SVGURIReference::isKnownAttribute(attrName)) {
         SVGElement::InvalidationGuard invalidationGuard(this);
@@ -107,21 +107,21 @@ void SVGMPathElement::svgAttributeChanged(const QualifiedName& attrName)
     SVGElement::svgAttributeChanged(attrName);
 }
 
-SVGPathElement* SVGMPathElement::pathElement()
+SVGPathElement* SVGNativeMPathElement::pathElement()
 {
     Element* target = targetElementFromIRIString(hrefString(), treeScope());
     return isSVGPathElement(target) ? toSVGPathElement(target) : 0;
 }
 
-void SVGMPathElement::targetPathChanged()
+void SVGNativeMPathElement::targetPathChanged()
 {
     notifyParentOfPathChange(parentNode());
 }
 
-void SVGMPathElement::notifyParentOfPathChange(ContainerNode* parent)
+void SVGNativeMPathElement::notifyParentOfPathChange(ContainerNode* parent)
 {
-    if (isSVGAnimateMotionElement(parent))
-        toSVGAnimateMotionElement(parent)->updateAnimationPath();
+    if (isSVGNativeAnimateMotionElement(parent))
+        toSVGNativeAnimateMotionElement(parent)->updateAnimationPath();
 }
 
 } // namespace blink

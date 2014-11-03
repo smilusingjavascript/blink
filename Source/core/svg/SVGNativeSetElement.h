@@ -18,24 +18,24 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGSetElement_h
-#define SVGSetElement_h
+#ifndef SVGNativeSetElement_h
+#define SVGNativeSetElement_h
 
-#include "core/svg/SVGAnimateElement.h"
+#include "core/svg/SVGNativeAnimateElement.h"
 
 namespace blink {
 
-// SVGAnimateElement implements superset of the functionality.
-class SVGSetElement final : public SVGAnimateElement {
+// SVGNativeAnimateElement implements superset of the functionality.
+class SVGNativeSetElement final : public SVGNativeAnimateElement {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    DECLARE_NODE_FACTORY(SVGSetElement);
+    DECLARE_NODE_FACTORY(SVGNativeSetElement);
 
 private:
-    explicit SVGSetElement(Document&);
+    explicit SVGNativeSetElement(Document&);
     virtual void updateAnimationMode() override;
 };
 
 } // namespace blink
 
-#endif // SVGSetElement_h
+#endif // SVGNativeSetElement_h

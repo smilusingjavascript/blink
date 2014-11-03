@@ -22,7 +22,7 @@
 
 #include "config.h"
 
-#include "core/svg/SVGAnimateElement.h"
+#include "core/svg/SVGNativeAnimateElement.h"
 
 #include "core/CSSPropertyNames.h"
 #include "core/css/StylePropertySet.h"
@@ -34,26 +34,26 @@
 
 namespace blink {
 
-SVGAnimateElement::SVGAnimateElement(const QualifiedName& tagName, Document& document)
-    : SVGAnimationElement(tagName, document)
+SVGNativeAnimateElement::SVGNativeAnimateElement(const QualifiedName& tagName, Document& document)
+    : SVGNativeAnimationElement(tagName, document)
 {
 }
 
-PassRefPtrWillBeRawPtr<SVGAnimateElement> SVGAnimateElement::create(Document& document)
+PassRefPtrWillBeRawPtr<SVGNativeAnimateElement> SVGNativeAnimateElement::create(Document& document)
 {
-    return adoptRefWillBeNoop(new SVGAnimateElement(SVGNames::animateTag, document));
+    return adoptRefWillBeNoop(new SVGNativeAnimateElement(SVGNames::nativeAnimateTag, document));
 }
 
-SVGAnimateElement::~SVGAnimateElement()
+SVGNativeAnimateElement::~SVGNativeAnimateElement()
 {
 }
 
-AnimatedPropertyType SVGAnimateElement::animatedPropertyType()
+AnimatedPropertyType SVGNativeAnimateElement::animatedPropertyType()
 {
     return ensureAnimator()->type();
 }
 
-bool SVGAnimateElement::hasValidAttributeType()
+bool SVGNativeAnimateElement::hasValidAttributeType()
 {
     SVGElement* targetElement = this->targetElement();
     if (!targetElement)
@@ -62,26 +62,26 @@ bool SVGAnimateElement::hasValidAttributeType()
     return animatedPropertyType() != AnimatedUnknown && !hasInvalidCSSAttributeType();
 }
 
-void SVGAnimateElement::calculateAnimatedValue(float percentage, unsigned repeatCount, SVGSMILElement* resultElement)
+void SVGNativeAnimateElement::calculateAnimatedValue(float percentage, unsigned repeatCount, SVGSMILElement* resultElement)
 {
     ASSERT(resultElement);
     SVGElement* targetElement = this->targetElement();
-    if (!targetElement || !isSVGAnimateElement(*resultElement))
+    if (!targetElement || !isSVGNativeAnimateElement(*resultElement))
         return;
 
     ASSERT(percentage >= 0 && percentage <= 1);
     ASSERT(m_animator);
-    ASSERT(animatedPropertyType() != AnimatedTransformList || isSVGAnimateTransformElement(*this));
+    ASSERT(animatedPropertyType() != AnimatedTransformList || isSVGNativeAnimateTransformElement(*this));
     ASSERT(animatedPropertyType() != AnimatedUnknown);
     ASSERT(m_fromProperty);
     ASSERT(m_fromProperty->type() == animatedPropertyType());
     ASSERT(m_toProperty);
 
-    SVGAnimateElement* resultAnimationElement = toSVGAnimateElement(resultElement);
+    SVGNativeAnimateElement* resultAnimationElement = toSVGNativeAnimateElement(resultElement);
     ASSERT(resultAnimationElement->m_animatedProperty);
     ASSERT(resultAnimationElement->animatedPropertyType() == animatedPropertyType());
 
-    if (isSVGSetElement(*this))
+    if (isSVGNativeSetElement(*this))
         percentage = 1;
 
     if (calcMode() == CalcModeDiscrete)
@@ -95,7 +95,7 @@ void SVGAnimateElement::calculateAnimatedValue(float percentage, unsigned repeat
     m_animator->calculateAnimatedValue(percentage, repeatCount, m_fromProperty.get(), m_toProperty.get(), toAtEndOfDurationProperty, resultAnimationElement->m_animatedProperty.get());
 }
 
-bool SVGAnimateElement::calculateToAtEndOfDurationValue(const String& toAtEndOfDurationString)
+bool SVGNativeAnimateElement::calculateToAtEndOfDurationValue(const String& toAtEndOfDurationString)
 {
     if (toAtEndOfDurationString.isEmpty())
         return false;
@@ -103,7 +103,7 @@ bool SVGAnimateElement::calculateToAtEndOfDurationValue(const String& toAtEndOfD
     return true;
 }
 
-bool SVGAnimateElement::calculateFromAndToValues(const String& fromString, const String& toString)
+bool SVGNativeAnimateElement::calculateFromAndToValues(const String& fromString, const String& toString)
 {
     SVGElement* targetElement = this->targetElement();
     if (!targetElement)
@@ -114,7 +114,7 @@ bool SVGAnimateElement::calculateFromAndToValues(const String& fromString, const
     return true;
 }
 
-bool SVGAnimateElement::calculateFromAndByValues(const String& fromString, const String& byString)
+bool SVGNativeAnimateElement::calculateFromAndByValues(const String& fromString, const String& byString)
 {
     SVGElement* targetElement = this->targetElement();
     if (!targetElement)
@@ -127,7 +127,7 @@ bool SVGAnimateElement::calculateFromAndByValues(const String& fromString, const
     if (animationMode() == FromByAnimation && !animatedPropertyTypeSupportsAddition())
         return false;
 
-    ASSERT(!isSVGSetElement(*this));
+    ASSERT(!isSVGNativeSetElement(*this));
 
     determinePropertyValueTypes(fromString, byString);
     ensureAnimator()->calculateFromAndByValues(m_fromProperty, m_toProperty, fromString, byString);
@@ -155,7 +155,7 @@ WillBeHeapVector<RawPtrWillBeMember<SVGElement> > findElementInstances(SVGElemen
 
 }
 
-void SVGAnimateElement::resetAnimatedType()
+void SVGNativeAnimateElement::resetAnimatedType()
 {
     SVGAnimatedTypeAnimator* animator = ensureAnimator();
 
@@ -187,7 +187,7 @@ void SVGAnimateElement::resetAnimatedType()
     String baseValue;
 
     if (shouldApply == ApplyCSSAnimation) {
-        ASSERT(SVGAnimationElement::isTargetAttributeCSSProperty(targetElement, attributeName));
+        ASSERT(SVGNativeAnimationElement::isTargetAttributeCSSProperty(targetElement, attributeName));
         computeCSSPropertyValue(targetElement, cssPropertyID(attributeName.localName()), baseValue);
     }
 
@@ -282,7 +282,7 @@ static inline void notifyTargetAndInstancesAboutAnimValChange(SVGElement* target
     }
 }
 
-void SVGAnimateElement::clearAnimatedType(SVGElement* targetElement)
+void SVGNativeAnimateElement::clearAnimatedType(SVGElement* targetElement)
 {
     if (!m_animatedProperty)
         return;
@@ -309,10 +309,10 @@ void SVGAnimateElement::clearAnimatedType(SVGElement* targetElement)
     m_animatedProperty.clear();
 }
 
-void SVGAnimateElement::applyResultsToTarget()
+void SVGNativeAnimateElement::applyResultsToTarget()
 {
     ASSERT(m_animator);
-    ASSERT(animatedPropertyType() != AnimatedTransformList || isSVGAnimateTransformElement(*this));
+    ASSERT(animatedPropertyType() != AnimatedTransformList || isSVGNativeAnimateTransformElement(*this));
     ASSERT(animatedPropertyType() != AnimatedUnknown);
 
     // Early exit if our animated type got destructed by a previous endedActiveInterval().
@@ -332,7 +332,7 @@ void SVGAnimateElement::applyResultsToTarget()
     notifyTargetAndInstancesAboutAnimValChange(targetElement(), attributeName());
 }
 
-bool SVGAnimateElement::animatedPropertyTypeSupportsAddition()
+bool SVGNativeAnimateElement::animatedPropertyTypeSupportsAddition()
 {
     // Spec: http://www.w3.org/TR/SVG/animate.html#AnimationAttributesAndProperties.
     switch (animatedPropertyType()) {
@@ -347,16 +347,16 @@ bool SVGAnimateElement::animatedPropertyTypeSupportsAddition()
     }
 }
 
-bool SVGAnimateElement::isAdditive()
+bool SVGNativeAnimateElement::isAdditive()
 {
     if (animationMode() == ByAnimation || animationMode() == FromByAnimation)
         if (!animatedPropertyTypeSupportsAddition())
             return false;
 
-    return SVGAnimationElement::isAdditive();
+    return SVGNativeAnimationElement::isAdditive();
 }
 
-float SVGAnimateElement::calculateDistance(const String& fromString, const String& toString)
+float SVGNativeAnimateElement::calculateDistance(const String& fromString, const String& toString)
 {
     // FIXME: A return value of float is not enough to support paced animations on lists.
     SVGElement* targetElement = this->targetElement();
@@ -366,19 +366,19 @@ float SVGAnimateElement::calculateDistance(const String& fromString, const Strin
     return ensureAnimator()->calculateDistance(fromString, toString);
 }
 
-void SVGAnimateElement::setTargetElement(SVGElement* target)
+void SVGNativeAnimateElement::setTargetElement(SVGElement* target)
 {
-    SVGAnimationElement::setTargetElement(target);
+    SVGNativeAnimationElement::setTargetElement(target);
     resetAnimatedPropertyType();
 }
 
-void SVGAnimateElement::setAttributeName(const QualifiedName& attributeName)
+void SVGNativeAnimateElement::setAttributeName(const QualifiedName& attributeName)
 {
-    SVGAnimationElement::setAttributeName(attributeName);
+    SVGNativeAnimationElement::setAttributeName(attributeName);
     resetAnimatedPropertyType();
 }
 
-void SVGAnimateElement::resetAnimatedPropertyType()
+void SVGNativeAnimateElement::resetAnimatedPropertyType()
 {
     ASSERT(!m_animatedProperty);
     m_fromProperty.clear();
@@ -387,17 +387,17 @@ void SVGAnimateElement::resetAnimatedPropertyType()
     m_animator.clear();
 }
 
-SVGAnimatedTypeAnimator* SVGAnimateElement::ensureAnimator()
+SVGAnimatedTypeAnimator* SVGNativeAnimateElement::ensureAnimator()
 {
     if (!m_animator)
         m_animator = SVGAnimatedTypeAnimator::create(this, targetElement());
     return m_animator.get();
 }
 
-void SVGAnimateElement::trace(Visitor* visitor)
+void SVGNativeAnimateElement::trace(Visitor* visitor)
 {
     visitor->trace(m_animator);
-    SVGAnimationElement::trace(visitor);
+    SVGNativeAnimationElement::trace(visitor);
 }
 
 }

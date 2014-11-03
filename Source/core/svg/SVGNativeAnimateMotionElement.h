@@ -18,24 +18,24 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGAnimateMotionElement_h
-#define SVGAnimateMotionElement_h
+#ifndef SVGNativeAnimateMotionElement_h
+#define SVGNativeAnimateMotionElement_h
 
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "platform/graphics/Path.h"
 
 namespace blink {
 
-class SVGAnimateMotionElement final : public SVGAnimationElement {
+class SVGNativeAnimateMotionElement final : public SVGNativeAnimationElement {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    virtual ~SVGAnimateMotionElement();
+    virtual ~SVGNativeAnimateMotionElement();
 
-    DECLARE_NODE_FACTORY(SVGAnimateMotionElement);
+    DECLARE_NODE_FACTORY(SVGNativeAnimateMotionElement);
     void updateAnimationPath();
 
 private:
-    explicit SVGAnimateMotionElement(Document&);
+    explicit SVGNativeAnimateMotionElement(Document&);
 
     virtual bool hasValidAttributeType() override;
     virtual bool hasValidAttributeName() override;
@@ -73,4 +73,4 @@ private:
 
 } // namespace blink
 
-#endif // SVGAnimateMotionElement_h
+#endif // SVGNativeAnimateMotionElement_h

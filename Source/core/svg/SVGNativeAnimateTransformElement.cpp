@@ -22,22 +22,22 @@
 
 #include "config.h"
 
-#include "core/svg/SVGAnimateTransformElement.h"
+#include "core/svg/SVGNativeAnimateTransformElement.h"
 
 #include "core/SVGNames.h"
 #include "core/svg/SVGParserUtilities.h"
 
 namespace blink {
 
-inline SVGAnimateTransformElement::SVGAnimateTransformElement(Document& document)
-    : SVGAnimateElement(SVGNames::animateTransformTag, document)
+inline SVGNativeAnimateTransformElement::SVGNativeAnimateTransformElement(Document& document)
+    : SVGNativeAnimateElement(SVGNames::nativeAnimateTransformTag, document)
     , m_type(SVG_TRANSFORM_UNKNOWN)
 {
 }
 
-DEFINE_NODE_FACTORY(SVGAnimateTransformElement)
+DEFINE_NODE_FACTORY(SVGNativeAnimateTransformElement)
 
-bool SVGAnimateTransformElement::hasValidAttributeType()
+bool SVGNativeAnimateTransformElement::hasValidAttributeType()
 {
     SVGElement* targetElement = this->targetElement();
     if (!targetElement)
@@ -49,7 +49,7 @@ bool SVGAnimateTransformElement::hasValidAttributeType()
     return animatedPropertyType() == AnimatedTransformList;
 }
 
-void SVGAnimateTransformElement::parseAttribute(const QualifiedName& name, const AtomicString& value)
+void SVGNativeAnimateTransformElement::parseAttribute(const QualifiedName& name, const AtomicString& value)
 {
     if (name == SVGNames::typeAttr) {
         m_type = parseTransformType(value);
@@ -58,7 +58,7 @@ void SVGAnimateTransformElement::parseAttribute(const QualifiedName& name, const
         return;
     }
 
-    SVGAnimateElement::parseAttribute(name, value);
+    SVGNativeAnimateElement::parseAttribute(name, value);
 }
 
 }

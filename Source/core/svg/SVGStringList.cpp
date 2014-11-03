@@ -153,7 +153,7 @@ void SVGStringList::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElemen
     ASSERT_NOT_REACHED();
 }
 
-void SVGStringList::calculateAnimatedValue(SVGAnimationElement*, float, unsigned, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, SVGElement*)
+void SVGStringList::calculateAnimatedValue(SVGNativeAnimationElement*, float, unsigned, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, SVGElement*)
 {
     // SVGStringList is never animated.
     ASSERT_NOT_REACHED();

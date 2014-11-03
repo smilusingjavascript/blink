@@ -230,7 +230,7 @@ void SVGTransform::add(PassRefPtrWillBeRawPtr<SVGPropertyBase>, SVGElement*)
     ASSERT_NOT_REACHED();
 }
 
-void SVGTransform::calculateAnimatedValue(SVGAnimationElement*, float, unsigned, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, SVGElement*)
+void SVGTransform::calculateAnimatedValue(SVGNativeAnimationElement*, float, unsigned, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, PassRefPtr<SVGPropertyBase>, SVGElement*)
 {
     // SVGTransform is not animated by itself.
     ASSERT_NOT_REACHED();

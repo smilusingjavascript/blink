@@ -22,9 +22,9 @@
 #include "core/svg/SVGAnimatedTypeAnimator.h"
 
 #include "core/css/parser/CSSParser.h"
-#include "core/svg/SVGAnimateTransformElement.h"
+#include "core/svg/SVGNativeAnimateTransformElement.h"
 #include "core/svg/SVGAnimatedColor.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGElement.h"
 #include "core/svg/SVGLength.h"
 #include "core/svg/SVGLengthList.h"
@@ -35,7 +35,7 @@
 
 namespace blink {
 
-SVGAnimatedTypeAnimator::SVGAnimatedTypeAnimator(SVGAnimationElement* animationElement, SVGElement* contextElement)
+SVGAnimatedTypeAnimator::SVGAnimatedTypeAnimator(SVGNativeAnimationElement* animationElement, SVGElement* contextElement)
     : m_animationElement(animationElement)
     , m_contextElement(contextElement)
 {
@@ -49,7 +49,7 @@ SVGAnimatedTypeAnimator::SVGAnimatedTypeAnimator(SVGAnimationElement* animationE
 
     // Only <animateTransform> is allowed to animate AnimatedTransformList.
     // http://www.w3.org/TR/SVG/animate.html#AnimationAttributesAndProperties
-    if (m_type == AnimatedTransformList && !isSVGAnimateTransformElement(*animationElement))
+    if (m_type == AnimatedTransformList && !isSVGNativeAnimateTransformElement(*animationElement))
         m_type = AnimatedUnknown;
 
     ASSERT(m_type != AnimatedPoint
@@ -71,7 +71,7 @@ PassRefPtr<SVGPropertyBase> SVGAnimatedTypeAnimator::createPropertyForAnimation(
             // and its {from,by,to} attribute values needs to be parsed w.r.t. its "type" attribute.
             // Spec: http://www.w3.org/TR/SVG/single-page.html#animate-AnimateTransformElement
             ASSERT(m_animationElement);
-            SVGTransformType transformType = toSVGAnimateTransformElement(m_animationElement)->transformType();
+            SVGTransformType transformType = toSVGNativeAnimateTransformElement(m_animationElement)->transformType();
             return SVGTransformList::create(transformType, value);
         }
 
@@ -217,7 +217,7 @@ public:
     {
     }
 
-    PassRefPtr<SVGPropertyBase> operator()(SVGAnimationElement*, const String& value)
+    PassRefPtr<SVGPropertyBase> operator()(SVGNativeAnimationElement*, const String& value)
     {
         return m_animator->createPropertyForAnimation(value);
     }

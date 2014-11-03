@@ -41,7 +41,7 @@
 namespace blink {
 
 class SVGElement;
-class SVGAnimationElement;
+class SVGNativeAnimationElement;
 
 class SVGPropertyBase : public RefCounted<SVGPropertyBase> {
     WTF_MAKE_NONCOPYABLE(SVGPropertyBase);
@@ -63,7 +63,7 @@ public:
 
     // FIXME: remove below and just have this inherit AnimatableValue in WebAnimations transition.
     virtual void add(PassRefPtrWillBeRawPtr<SVGPropertyBase>, SVGElement*) = 0;
-    virtual void calculateAnimatedValue(SVGAnimationElement*, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*) = 0;
+    virtual void calculateAnimatedValue(SVGNativeAnimationElement*, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*) = 0;
     virtual float calculateDistance(PassRefPtr<SVGPropertyBase> to, SVGElement*) = 0;
 
     AnimatedPropertyType type()

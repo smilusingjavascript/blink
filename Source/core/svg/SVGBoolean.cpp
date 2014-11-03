@@ -35,7 +35,7 @@
 #include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/ExceptionStatePlaceholder.h"
 #include "core/dom/ExceptionCode.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 
 namespace blink {
 
@@ -60,7 +60,7 @@ void SVGBoolean::add(PassRefPtrWillBeRawPtr<SVGPropertyBase>, SVGElement*)
     ASSERT_NOT_REACHED();
 }
 
-void SVGBoolean::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase>, SVGElement*)
+void SVGBoolean::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase>, SVGElement*)
 {
     ASSERT(animationElement);
     bool fromBoolean = animationElement->animationMode() == ToAnimation ? m_value : toSVGBoolean(from)->value();

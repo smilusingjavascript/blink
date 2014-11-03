@@ -21,7 +21,7 @@
 #include "config.h"
 #include "core/svg/SVGNumberList.h"
 
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "wtf/text/StringBuilder.h"
 #include "wtf/text/WTFString.h"
@@ -113,7 +113,7 @@ void SVGNumberList::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElemen
         at(i)->setValue(at(i)->value() + otherList->at(i)->value());
 }
 
-void SVGNumberList::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGNumberList::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     RefPtr<SVGNumberList> fromList = toSVGNumberList(fromValue);
     RefPtr<SVGNumberList> toList = toSVGNumberList(toValue);

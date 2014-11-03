@@ -26,7 +26,7 @@
 #include "core/svg/SVGTransformList.h"
 
 #include "core/SVGNames.h"
-#include "core/svg/SVGAnimateTransformElement.h"
+#include "core/svg/SVGNativeAnimateTransformElement.h"
 #include "core/svg/SVGAnimatedNumber.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "core/svg/SVGTransformDistance.h"
@@ -293,7 +293,7 @@ void SVGTransformList::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGEle
     append(SVGTransformDistance::addSVGTransforms(fromTransform, toTransform));
 }
 
-void SVGTransformList::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGTransformList::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     ASSERT(animationElement);
     bool isToAnimation = animationElement->animationMode() == ToAnimation;

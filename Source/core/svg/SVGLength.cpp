@@ -27,7 +27,7 @@
 #include "core/SVGNames.h"
 #include "core/css/CSSPrimitiveValue.h"
 #include "core/dom/ExceptionCode.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "platform/animation/AnimationUtilities.h"
 #include "wtf/MathExtras.h"
@@ -444,7 +444,7 @@ void SVGLength::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElement* c
     setValue(value(lengthContext) + toSVGLength(other)->value(lengthContext), lengthContext, ASSERT_NO_EXCEPTION);
 }
 
-void SVGLength::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGLength::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     RefPtr<SVGLength> fromLength = toSVGLength(fromValue);
     RefPtr<SVGLength> toLength = toSVGLength(toValue);

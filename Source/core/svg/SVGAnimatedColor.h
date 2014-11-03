@@ -36,7 +36,7 @@
 
 namespace blink {
 
-class SVGAnimationElement;
+class SVGNativeAnimationElement;
 
 // StyleColor adaptor to SVGPropertyBase. This is only used for SMIL animations.
 // FIXME: WebAnimations: Replacable with AnimatableColor once SMIL animations are implemented in WebAnimations.
@@ -51,7 +51,7 @@ public:
     virtual String valueAsString() const override;
 
     virtual void add(PassRefPtrWillBeRawPtr<SVGPropertyBase>, SVGElement*) override;
-    virtual void calculateAnimatedValue(SVGAnimationElement*, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*) override;
+    virtual void calculateAnimatedValue(SVGNativeAnimationElement*, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> from, PassRefPtr<SVGPropertyBase> to, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement*) override;
     virtual float calculateDistance(PassRefPtr<SVGPropertyBase> to, SVGElement*) override;
 
     static AnimatedPropertyType classType() { return AnimatedColor; }

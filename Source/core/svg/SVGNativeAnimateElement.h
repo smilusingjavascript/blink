@@ -20,23 +20,23 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGAnimateElement_h
-#define SVGAnimateElement_h
+#ifndef SVGNativeAnimateElement_h
+#define SVGNativeAnimateElement_h
 
 #include "core/SVGNames.h"
 #include "core/svg/SVGAnimatedTypeAnimator.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "wtf/OwnPtr.h"
 
 namespace blink {
 
 class SVGAnimatedTypeAnimator;
 
-class SVGAnimateElement : public SVGAnimationElement {
+class SVGNativeAnimateElement : public SVGNativeAnimationElement {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    static PassRefPtrWillBeRawPtr<SVGAnimateElement> create(Document&);
-    virtual ~SVGAnimateElement();
+    static PassRefPtrWillBeRawPtr<SVGNativeAnimateElement> create(Document&);
+    virtual ~SVGNativeAnimateElement();
 
     virtual void trace(Visitor*) override;
 
@@ -44,7 +44,7 @@ public:
     bool animatedPropertyTypeSupportsAddition();
 
 protected:
-    SVGAnimateElement(const QualifiedName&, Document&);
+    SVGNativeAnimateElement(const QualifiedName&, Document&);
 
     virtual void resetAnimatedType() override final;
     virtual void clearAnimatedType(SVGElement* targetElement) override final;
@@ -74,15 +74,15 @@ private:
     OwnPtrWillBeMember<SVGAnimatedTypeAnimator> m_animator;
 };
 
-inline bool isSVGAnimateElement(const SVGElement& element)
+inline bool isSVGNativeAnimateElement(const SVGElement& element)
 {
-    return element.hasTagName(SVGNames::animateTag)
-        || element.hasTagName(SVGNames::animateTransformTag)
-        || element.hasTagName(SVGNames::setTag);
+    return element.hasTagName(SVGNames::nativeAnimateTag)
+        || element.hasTagName(SVGNames::nativeAnimateTransformTag)
+        || element.hasTagName(SVGNames::nativeSetTag);
 }
 
-DEFINE_SVGELEMENT_TYPE_CASTS_WITH_FUNCTION(SVGAnimateElement);
+DEFINE_SVGELEMENT_TYPE_CASTS_WITH_FUNCTION(SVGNativeAnimateElement);
 
 } // namespace blink
 
-#endif // SVGAnimateElement_h
+#endif // SVGNativeAnimateElement_h

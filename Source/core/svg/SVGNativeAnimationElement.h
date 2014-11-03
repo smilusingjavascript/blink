@@ -22,8 +22,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef SVGAnimationElement_h
-#define SVGAnimationElement_h
+#ifndef SVGNativeAnimationElement_h
+#define SVGNativeAnimationElement_h
 
 #include "core/svg/SVGAnimatedBoolean.h"
 #include "core/svg/animation/SVGSMILElement.h"
@@ -56,10 +56,10 @@ enum CalcMode {
     CalcModeSpline
 };
 
-class SVGAnimationElement : public SVGSMILElement {
+class SVGNativeAnimationElement : public SVGSMILElement {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    // SVGAnimationElement
+    // SVGNativeAnimationElement
     float getStartTime() const;
     float getCurrentTime() const;
     float getSimpleDuration() const;
@@ -130,7 +130,7 @@ public:
     }
 
 protected:
-    SVGAnimationElement(const QualifiedName&, Document&);
+    SVGNativeAnimationElement(const QualifiedName&, Document&);
 
     void computeCSSPropertyValue(SVGElement*, CSSPropertyID, String& value);
     void determinePropertyValueTypes(const String& from, const String& to);
@@ -211,4 +211,4 @@ private:
 
 } // namespace blink
 
-#endif // SVGAnimationElement_h
+#endif // SVGNativeAnimationElement_h

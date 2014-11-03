@@ -4,11 +4,7 @@ fallbackInterfaceName="SVGUnknownElement"
 fallbackJSInterfaceName="SVGElement"
 
 a
-animate noTypeHelpers
 animateColor interfaceName=SVGUnknownElement, JSInterfaceName=SVGElement, noConstructor
-animateMotion
-animateTransform
-set
 circle
 clipPath
 cursor
@@ -50,7 +46,11 @@ linearGradient
 marker
 mask
 metadata
-mpath interfaceName=SVGMPathElement
+nativeAnimate noTypeHelpers
+nativeAnimateMotion
+nativeAnimateTransform
+nativeMPath interfaceName=SVGNativeMPathElement
+nativeSet
 path
 pattern
 polygon

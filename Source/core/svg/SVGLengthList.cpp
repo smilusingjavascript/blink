@@ -22,7 +22,7 @@
 #include "core/svg/SVGLengthList.h"
 
 #include "bindings/core/v8/ExceptionStatePlaceholder.h"
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "wtf/text/StringBuilder.h"
 
@@ -134,7 +134,7 @@ PassRefPtr<SVGLength> SVGLengthList::createPaddingItem() const
     return SVGLength::create(m_mode);
 }
 
-void SVGLengthList::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGLengthList::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     RefPtr<SVGLengthList> fromList = toSVGLengthList(fromValue);
     RefPtr<SVGLengthList> toList = toSVGLengthList(toValue);

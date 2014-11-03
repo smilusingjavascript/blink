@@ -21,7 +21,7 @@
 #include "config.h"
 #include "core/svg/SVGPointList.h"
 
-#include "core/svg/SVGAnimationElement.h"
+#include "core/svg/SVGNativeAnimationElement.h"
 #include "core/svg/SVGParserUtilities.h"
 #include "platform/geometry/FloatPoint.h"
 #include "wtf/text/StringBuilder.h"
@@ -129,7 +129,7 @@ void SVGPointList::add(PassRefPtrWillBeRawPtr<SVGPropertyBase> other, SVGElement
         at(i)->setValue(at(i)->value() + otherList->at(i)->value());
 }
 
-void SVGPointList::calculateAnimatedValue(SVGAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
+void SVGPointList::calculateAnimatedValue(SVGNativeAnimationElement* animationElement, float percentage, unsigned repeatCount, PassRefPtr<SVGPropertyBase> fromValue, PassRefPtr<SVGPropertyBase> toValue, PassRefPtr<SVGPropertyBase> toAtEndOfDurationValue, SVGElement* contextElement)
 {
     RefPtr<SVGPointList> fromList = toSVGPointList(fromValue);
     RefPtr<SVGPointList> toList = toSVGPointList(toValue);

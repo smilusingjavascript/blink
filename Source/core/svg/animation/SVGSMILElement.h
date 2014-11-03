@@ -277,8 +277,8 @@ private:
 
 inline bool isSVGSMILElement(const SVGElement& element)
 {
-    return element.hasTagName(SVGNames::setTag) || element.hasTagName(SVGNames::animateTag) || element.hasTagName(SVGNames::animateMotionTag)
-        || element.hasTagName(SVGNames::animateTransformTag) || element.hasTagName((SVGNames::discardTag));
+    return element.hasTagName(SVGNames::nativeSetTag) || element.hasTagName(SVGNames::nativeAnimateTag) || element.hasTagName(SVGNames::nativeAnimateMotionTag)
+        || element.hasTagName(SVGNames::nativeAnimateTransformTag) || element.hasTagName((SVGNames::discardTag));
 }
 
 DEFINE_SVGELEMENT_TYPE_CASTS_WITH_FUNCTION(SVGSMILElement);

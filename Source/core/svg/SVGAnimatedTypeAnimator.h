@@ -33,12 +33,12 @@ namespace blink {
 class SVGAnimatedPropertyBase;
 class SVGPropertyBase;
 class SVGElement;
-class SVGAnimationElement;
+class SVGNativeAnimationElement;
 
 class SVGAnimatedTypeAnimator final : public NoBaseWillBeGarbageCollectedFinalized<SVGAnimatedTypeAnimator> {
     WTF_MAKE_FAST_ALLOCATED_WILL_BE_REMOVED;
 public:
-    static PassOwnPtrWillBeRawPtr<SVGAnimatedTypeAnimator> create(SVGAnimationElement* animationElement, SVGElement* targetElement)
+    static PassOwnPtrWillBeRawPtr<SVGAnimatedTypeAnimator> create(SVGNativeAnimationElement* animationElement, SVGElement* targetElement)
     {
         return adoptPtrWillBeNoop(new SVGAnimatedTypeAnimator(animationElement, targetElement));
     }
@@ -65,14 +65,14 @@ public:
     void trace(Visitor*);
 
 private:
-    SVGAnimatedTypeAnimator(SVGAnimationElement*, SVGElement*);
+    SVGAnimatedTypeAnimator(SVGNativeAnimationElement*, SVGElement*);
 
     friend class ParsePropertyFromString;
     PassRefPtr<SVGPropertyBase> createPropertyForAnimation(const String&);
     PassRefPtr<SVGPropertyBase> resetAnimation(const WillBeHeapVector<RawPtrWillBeMember<SVGElement> >&);
 
     AnimatedPropertyType m_type;
-    RawPtrWillBeMember<SVGAnimationElement> m_animationElement;
+    RawPtrWillBeMember<SVGNativeAnimationElement> m_animationElement;
     RawPtrWillBeMember<SVGElement> m_contextElement;
     RefPtr<SVGAnimatedPropertyBase> m_animatedProperty;
 };
